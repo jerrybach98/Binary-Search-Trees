@@ -1,7 +1,3 @@
-# find milddle element, put smaller element on left, and bigger on right
-# recursively do the same for left hald and right half
-
-
 class Tree
   attr_accessor :root
 
@@ -28,6 +24,27 @@ class Tree
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 
+
+# insert and delete method
+# will insert as a leaf
+# compare value to roots then choose order to add less/left, otherwise right
+# insert if nil (leaf)
+# don't add if duplicate?
+  def insert(node = @root, value) 
+    if node == nil
+      return node = Node.new(value)
+    end
+
+    if value < node.data 
+      node.left = insert(node.left, value)
+    elsif value > node.data 
+      node.right = insert(node.right, value)
+    end
+
+    return node
+  end
+
+
 end
 
 
@@ -46,4 +63,9 @@ end
 
 array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 tree = Tree.new(array)
+
+tree.pretty_print
+puts "  "
+puts "  "
+tree.insert(2)
 tree.pretty_print
