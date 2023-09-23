@@ -134,7 +134,7 @@ class Tree
   end
 
   # Visit data, Left subtree, right subtree
-  # down all the way left, once data.left nil, parents right
+  # top down all the way left, once data.left nil, parents right
   def preorder(node = @root)
     if node == nil
       return []
@@ -149,9 +149,20 @@ class Tree
     return result
   end
 
-  # left, data, right
-  # 
+  # go all the way down left
+  # print left, parent, right
   def inorder (node = @root)
+    if node == nil
+      return []
+    end
+
+    result = []
+    
+    result += inorder(node.left)
+    result << node.data
+    result += inorder(node.right)
+
+    return result
 
   end
 
@@ -188,4 +199,5 @@ tree.pretty_print
 puts tree.find(6345)
 puts tree.find(16)
 tree.level_order
-p "Preorder: #{tree.preorder}"
+puts "Preorder: #{tree.preorder}"
+puts "Inorder: #{tree.inorder}"
