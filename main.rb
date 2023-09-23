@@ -44,6 +44,54 @@ class Tree
     return node
   end
 
+  # 1st case, delete leaf easily, set it equal to nil
+  # 2nd case, replace node with child
+  # 3rd case, two children, find thing that is next biggest in array. Look far left in right subtree to replace,
+    # if the furthest left has children, it is smallest in subtree, every child will only have right subtrees
+  def delete(node = @root, value)
+    # Base for recursion
+    if node == nil
+      return node
+    end
+
+    # recursion for traversal
+    if value < node.data
+      node.left = delete(node.left, value)
+      return node
+    elsif value > node.data
+      node.right = delete(node.right, value)
+      return node
+    end
+
+    # Deletion logic
+    # one or no child
+    if node.left == nil
+      return node.right
+    elsif node.right == nil
+      return node.left
+    # two children
+    else
+      succ_parent = node
+      successor = node.right
+      #find successor
+      until successor.left == nil
+        succ_parent = successor
+        successor = successor.left
+      end
+
+      # is parent of successor not same as current node? true remove successor
+      if succ_parent != node
+        succ_parent.left = successor.right
+      else 
+        succ_parent.right = successor.right
+      end
+
+      # replace node with sucessor
+      node.data = successor.data
+    end
+    return node
+  end
+
 
 end
 
@@ -66,6 +114,8 @@ tree = Tree.new(array)
 
 tree.pretty_print
 puts "  "
-puts "  "
+puts "Insert new node and delete:"
 tree.insert(2)
+tree.delete(1)
+tree.delete(67)
 tree.pretty_print
