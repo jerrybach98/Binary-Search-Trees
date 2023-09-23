@@ -92,6 +92,24 @@ class Tree
     return node
   end
 
+  def find(node = @root, value)
+    
+    if node == nil
+      return false
+    end
+
+    if value == node.data
+      return true
+    end
+    
+    # recursion for traversal
+    if value < node.data
+      find(node.left, value)
+    elsif value > node.data
+      find(node.right, value)
+    end
+  end
+
 
 end
 
@@ -119,3 +137,5 @@ tree.insert(2)
 tree.delete(1)
 tree.delete(67)
 tree.pretty_print
+puts tree.find(6345)
+puts tree.find(16)
