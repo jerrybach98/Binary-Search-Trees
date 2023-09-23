@@ -130,9 +130,33 @@ class Tree
         queue << current.right
       end
     end
+    p "Level order: #{output}"
+  end
 
-    p output
+  # Visit data, Left subtree, right subtree
+  # down all the way left, once data.left nil, parents right
+  def preorder(node = @root)
+    if node == nil
+      return []
+    end
+    
+    result = []
+    result << node.data
+    
+    result += preorder(node.left)
+    result += preorder(node.right)
 
+    return result
+  end
+
+  # left, data, right
+  # 
+  def inorder (node = @root)
+
+  end
+
+  #
+  def postorder(node = @root)
   end
   
 end
@@ -164,3 +188,4 @@ tree.pretty_print
 puts tree.find(6345)
 puts tree.find(16)
 tree.level_order
+p "Preorder: #{tree.preorder}"
