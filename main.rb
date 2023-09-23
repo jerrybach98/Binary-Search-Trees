@@ -93,7 +93,6 @@ class Tree
   end
 
   def find(node = @root, value)
-    
     if node == nil
       return false
     end
@@ -102,7 +101,6 @@ class Tree
       return true
     end
     
-    # recursion for traversal
     if value < node.data
       find(node.left, value)
     elsif value > node.data
@@ -110,7 +108,33 @@ class Tree
     end
   end
 
+  # traverse and display breadth-first level order, use recursion or iteration, return an array of values
+  # use array with queue to keep track of nodes
+  def level_order(node = @root)
+    # check if empty
+    if node == nil
+      return nil
+    end
 
+    queue = [node]
+    output = []
+    until queue.empty?
+      # pull node out of queue to process children and value
+      current = queue.shift
+      output << current.data
+      # queues data
+      if current.left != nil 
+        queue << current.left
+      end
+      if current.right != nil
+        queue << current.right
+      end
+    end
+
+    p output
+
+  end
+  
 end
 
 
@@ -139,3 +163,4 @@ tree.delete(67)
 tree.pretty_print
 puts tree.find(6345)
 puts tree.find(16)
+tree.level_order
