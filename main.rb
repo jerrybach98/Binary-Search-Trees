@@ -219,7 +219,7 @@ class Tree
     left = height(node.left)
     right = height(node.right)
 
-    if left - right > 1
+    if (left - right).abs > 1
       return false
     end
 
@@ -271,4 +271,26 @@ end
 # puts tree.balanced?
 # tree.rebalanced
 
-# test Driver Script
+# Test Driver Script
+array = (Array.new(15) { rand(1..100) })
+tree = Tree.new(array)
+puts "Initial tree:"
+tree.pretty_print
+puts "Balanced: #{tree.balanced?}"
+puts "Preorder: #{tree.preorder}"
+puts "Inorder: #{tree.inorder}"
+puts "Postorder: #{tree.postorder}"
+
+puts "Insert Nodes:"
+tree.insert(150)
+tree.insert(200)
+tree.insert(175)
+tree.pretty_print
+puts "Balanced: #{tree.balanced?}"
+
+puts "Rebalance:"
+tree.rebalanced
+puts "Balanced: #{tree.balanced?}"
+puts "Preorder: #{tree.preorder}"
+puts "Inorder: #{tree.inorder}"
+puts "Postorder: #{tree.postorder}"
