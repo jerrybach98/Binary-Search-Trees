@@ -130,7 +130,7 @@ class Tree
         queue << current.right
       end
     end
-    p "Level order: #{output}"
+    output
   end
 
   # Visit data, Left subtree, right subtree
@@ -208,7 +208,28 @@ class Tree
     elsif value > node.data
       depth(node.right, counter + 1, value)
     end
-    
+  end
+
+  # use height helper function, compare sides
+  def balanced?(node = @root)
+    if node == nil 
+      return true
+    end
+
+    left = height(node.left)
+    right = height(node.right)
+
+    if left - right > 1
+      return false
+    end
+
+    balanced?(node.left) && balanced?(node.right)
+  end
+
+  # grab values from tree through a traversal method, use build tree a self balancing method
+  def rebalanced()
+    @root = build_tree(level_order.sort.uniq)
+    pretty_print()
   end
   
 end
@@ -228,23 +249,26 @@ class Node
 end
 
 
-# debug and make new tree
-array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-tree = Tree.new(array)
-tree.pretty_print
-puts "  "
-puts "Insert new node and delete:"
-tree.insert(2)
-tree.delete(1)
-tree.delete(67)
-tree.pretty_print
-puts tree.find(6345)
-puts tree.find(16)
-tree.level_order
-puts "Preorder: #{tree.preorder}"
-puts "Inorder: #{tree.inorder}"
-puts "Postorder: #{tree.postorder}"
-puts "Tree height: #{tree.height}"
-puts "Node depth: #{tree.depth(8)}"
-puts "Node depth: #{tree.depth(2)}"
+# debug comments and make new tree
+# array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+# tree = Tree.new(array)
+# tree.pretty_print
+# puts "  "
+# puts "Insert new node and delete:"
+# tree.insert(2)
+# tree.delete(1)
+# tree.delete(67)
+# tree.pretty_print
+# puts tree.find(6345)
+# puts tree.find(16)
+# p "Level order: #{tree.level_order}"
+# puts "Preorder: #{tree.preorder}"
+# puts "Inorder: #{tree.inorder}"
+# puts "Postorder: #{tree.postorder}"
+# puts "Tree height: #{tree.height}"
+# puts "Node depth: #{tree.depth(8)}"
+# puts "Node depth: #{tree.depth(2)}"
+# puts tree.balanced?
+# tree.rebalanced
 
+# test Driver Script
