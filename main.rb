@@ -166,8 +166,49 @@ class Tree
 
   end
 
-  #
+  # left, right, data
   def postorder(node = @root)
+    if node == nil
+      return []
+    end
+
+    result = []
+    
+    result += postorder(node.left)
+    result += postorder(node.right)
+    result << node.data
+
+    return result
+  end
+
+  # find the height of the tree
+  def height(node = @root, count = -1)
+    if node == nil
+      return count
+    end
+
+    left = height(node.left, count + 1)
+    right = height(node.right, count + 1)
+
+    return [left, right].max
+
+  end
+
+  def depth(node = @root, counter = 0, value)
+    if node == nil
+      return -1
+    end
+
+    if node.data == value 
+      return counter
+    end
+    
+    if value < node.data
+      depth(node.left, counter + 1, value)
+    elsif value > node.data
+      depth(node.right, counter + 1, value)
+    end
+    
   end
   
 end
@@ -186,9 +227,10 @@ class Node
 
 end
 
+
+# debug and make new tree
 array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 tree = Tree.new(array)
-
 tree.pretty_print
 puts "  "
 puts "Insert new node and delete:"
@@ -201,3 +243,8 @@ puts tree.find(16)
 tree.level_order
 puts "Preorder: #{tree.preorder}"
 puts "Inorder: #{tree.inorder}"
+puts "Postorder: #{tree.postorder}"
+puts "Tree height: #{tree.height}"
+puts "Node depth: #{tree.depth(8)}"
+puts "Node depth: #{tree.depth(2)}"
+
